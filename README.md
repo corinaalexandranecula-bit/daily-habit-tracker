@@ -1,11 +1,21 @@
-# Daily Habit Tracker
+# Daily Habit Tracker (Django)
 
-A Python project that helps track daily habits and build consistency.
+A simple habit tracker web app built with Django. Users can create habits, mark them as done for today, and view progress for the last 7 days, including streaks.
 
-## Description
+## Features
+- Authentication (login/register/logout)
+- Create / edit / delete habits
+- "Done today" toggle per habit
+- Last 7 days table (✅/❌)
+- Weekly summary per habit (done days + %)
+- Streaks (consecutive days done)
 
-This application allows users to:
-- create daily habits
-- mark habits as completed
-- track progress over time
-- store habit data locally
+## Tech Stack
+- Python 3
+- Django
+- SQLite (local dev)
+
+## Setup (Local)
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/corinaalexandranecula-bit/daily-habit-tracker.git
