@@ -78,7 +78,7 @@ Dashboard
 
 # How to run the project locally
 
-git clone https://github.com/<your-username>/daily-habit-tracker.git
+git clone https://github.com/corinaalexandranecula-bit/daily-habit-tracker.git
 cd daily-habit-tracker
 python -m venv venv
 venv\Scripts\activate
