@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>{% if habit %}Edit Habit{% else %}Add Habit{% endif %}</h1>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <p>
+        <label>Title:</label><br />
+        <input
+          type="text"
+          name="title"
+          required
+          value="{{habit.title|default_if_none:''}}"
+        />
+      </p>
+
+      <p>
+        <label>Target daily:</label><br />
+        <input
+          type="number"
+          name="target_daily"
+          value="1"
+          min="1"
+          required
+          value="{{habit.target_daily|default:1 }}"
+        />
+      </p>
+
+      <p>
+        <label>Color:</label>
+        <input
+          type="color"
+          name="color"
+          value="{{habit.color|default:'#3498db'}}"
+        />
+      </p>
+      <button type="submit">
+        {% if habit %}Save{% else %}Create{% endif %}
+      </button>
+    </form>
+
+    <p><a href="{% url 'dashboard' %}">Back to dashboard</a></p>
+  </body>
+</html>

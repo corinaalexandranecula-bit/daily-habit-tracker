@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Habit</title>
+</head>
+<body>
+    <h1>Delete Habit</h1>
+
+    <p>Esti sigur ca vrei sa stergi obiceiul: <strong>{{ habit.title }}</strong></p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Da, sterge</button>
+    </form>
+
+    <p><a href="{% url 'dashboard' %}">Nu, inapoi la dashboard</a></p>
+</body>
+</html>

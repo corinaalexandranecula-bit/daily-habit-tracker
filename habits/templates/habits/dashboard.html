@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+
+  <body>
+    <h1>Dashboard</h1>
+    <p><a href="{% url 'habit_create' %}">+ Add new habit</a></p>
+
+    <h2>Obiceiurile tale</h2>
+
+    {% if habits %}
+      <ul>
+        {% for row in habit_rows %}
+          <li>
+            {{ row.habit.title }} (target zilnic: {{ row.habit.target_daily }})
+            - Streak: {{ row.streak }}
+          
+      
+
+            —
+            <a href="{% url 'habit_edit' row.habit.id %}">Edit</a> |
+            <a href="{% url 'habit_delete' row.habit.id %}">Delete</a> |
+
+            <form action="{% url 'habit_toggle_today' row.habit.id %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit">
+                {% if row.habit.id in done_today_ids %}
+                  Undo
+                {% else %}
+                  Done today
+                {% endif %}
+              </button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <h2>Ultimele 7 zile</h2>
+
+      <h3>Rezumat pe ultimele 7 zile (per habit)</h3>
+      <ul>
+        {% for item in habit_weekly %}
+        <li>
+          <strong>{{ item.habit.title }}</strong> 
+          {% if item.streak > 0 %}
+          🔥 {{ item.streak }} zile
+          {% endif %}
+
+          (target zilnic: {{ item.habit.target_daily }})
+
+          - {{ item.done_days }}/
+          {{ item.total_days }} zile 
+          ({{ item.percent }}%)
+
+          {% if item.percent >= 70 %}
+          🔥
+          {% elif item.percent >= 30 %}
+          🙂
+          {% else %}
+          ❗
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+
+      <table border="1" cellpadding="6">
+        <thead>
+          <tr>
+            <th>Habit</th>
+            {% for day in days %}
+              <th>{{ day|date:"d M" }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for row in habit_rows %}
+            <tr>
+              <td>{{ row.habit.title }}<br>
+                <small>🔥 Streak: {{ row.streak }}</small>
+              </td>
+
+              {% for done in row.days %}
+                <td style="text-align:center;">
+                  {% if done %}
+                    ✅
+                  {% else %}
+                    ❌
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% else %}
+      <p>Nu ai inca niciun obicei.</p>
+    {% endif %}
+
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+  </body>
+</html>
