@@ -11,6 +11,5 @@ urlpatterns = [
     path('habits/<int:habit_id>/edit/', views.habit_edit_view, name='habit_edit'),
     path('habits/<int:habit_id>/delete/', views.habit_delete_view, name='habit_delete'),
     path('habits/<int:habit_id>/toggle-today/', views.habit_toggle_today_view, name='habit_toggle_today'),
-    path("habits/<int:habit_id>/", views.habit_detail_view, name="habit_detail"),
 ]
 
